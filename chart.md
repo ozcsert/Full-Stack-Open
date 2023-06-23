@@ -9,24 +9,28 @@
     server-->>browser: Found 302 
     deactivate server
     
-    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the serverServer asks the browser to create a GET request to /exampleapp/notes(Redirecting)
+    Note right of browser:Server asks the browser to create a GET request to /exampleapp/notes(Redirecting)
+
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: text/HTML document
     deactivate server
 
+
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: the css file
     deactivate server
+
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
     activate server
     server-->>browser: the JavaScript file
     deactivate server
 
-    Note right of browser:The user input into the form has already been added to data.json on the server side and this js file will append the data.json as a child to the "notes" when the file is fetched
+    Note right of browser:The user input into the form has already been added to data.json on the server side and this js file will append the data.json as a child to the "notes" when the file is fetched in the next step.
+
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
