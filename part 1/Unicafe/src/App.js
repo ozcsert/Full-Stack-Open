@@ -1,9 +1,5 @@
 import { useState } from "react";
 
-
-
-
-
 function App() {
 
   const [value, setValue] = useState({
@@ -27,6 +23,11 @@ function App() {
     console.log("bad")
   }
 
+  const allCounter = (a,b,c) =>  a + b + c
+
+  const average = () => (value.good - value.bad) / (value.good + value.neutral + value.bad)
+
+  const positive = () => (value.good) / (value.good + value.neutral + value.bad) *100 
   return (
     <>
       <h1>Give Feedback</h1>
@@ -37,6 +38,10 @@ function App() {
       <p >good {value.good} </p>
       <p >neutral {value.neutral} </p>
       <p >bad {value.bad} </p>
+      <p>all {allCounter(value.good,value.neutral,value.bad)}</p>
+      <p>average {average()} </p>
+      <p>positive {positive()} %</p>
+      
     </>
   );
 }
