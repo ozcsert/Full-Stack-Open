@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 
 const App = () => {
@@ -14,15 +13,22 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(7)
-
+  const [vote, setVote] = useState(new Uint8Array(8)) 
   
-  const selectedNew = () => setSelected(Math.floor(Math.random() * 8))
-  //console.log(selectedNew())
-
+  const cycleItem = () => setSelected(Math.floor(Math.random() * anecdotes.length))
+  
+  const voteQuote = () => {
+    let votesCopy = [...vote]
+    votesCopy[selected] +=1
+    setVote(votesCopy)
+  }
+  
   return (
     <div>
       <p>{anecdotes[selected]}</p>
-      <button onClick={selectedNew} >next anecdote</button>
+      <p>Has {vote[selected]} votes</p>
+      <button onClick={voteQuote}>Vote</button>
+      <button onClick={cycleItem} >Next Anecdote</button>
     </div>
   )
 }
