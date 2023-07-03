@@ -12,7 +12,7 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
-  const [selected, setSelected] = useState(7)
+  const [selected, setSelected] = useState(0)
   const [vote, setVote] = useState(new Uint8Array(8)) 
   
   const cycleItem = () => setSelected(Math.floor(Math.random() * anecdotes.length))
@@ -23,12 +23,24 @@ const App = () => {
     setVote(votesCopy)
   }
   
+  const LargestIndex = (array) => {
+    let max = array[1]
+    for (let i = 0; i < array.length; i++ ) {
+        if (array[i] > max) 
+          max=array[i]
+    } return array.indexOf(max)
+  } 
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>Has {vote[selected]} votes</p>
       <button onClick={voteQuote}>Vote</button>
       <button onClick={cycleItem} >Next Anecdote</button>
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[LargestIndex(vote)]} </p>
+      <p> Has {vote[LargestIndex(vote)]} votes</p>
     </div>
   )
 }
