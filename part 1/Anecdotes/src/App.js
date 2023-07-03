@@ -1,5 +1,30 @@
 import { useState } from 'react'
 
+const Title = ({ text }) => {
+  return (
+  <>
+    <h1>{text}</h1>
+  </>
+  )
+}
+
+const Anecdote = ({ anecdote , votes }) => {
+  return (
+    <>
+    <p> {anecdote} </p>
+    <p> Has {votes} vote</p>
+    </>
+  )
+}
+
+const Button = ({ onClick , text }) => {
+  return (
+      <>
+      <button onClick={onClick}>{text}</button>
+      </>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -14,7 +39,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [vote, setVote] = useState(new Uint8Array(8)) 
-  
+
   const cycleItem = () => setSelected(Math.floor(Math.random() * anecdotes.length))
   
   const voteQuote = () => {
@@ -33,14 +58,12 @@ const App = () => {
 
   return (
     <div>
-      <h1>Anecdote of the day</h1>
-      <p>{anecdotes[selected]}</p>
-      <p>Has {vote[selected]} votes</p>
-      <button onClick={voteQuote}>Vote</button>
-      <button onClick={cycleItem} >Next Anecdote</button>
-      <h1>Anecdote with most votes</h1>
-      <p>{anecdotes[LargestIndex(vote)]} </p>
-      <p> Has {vote[LargestIndex(vote)]} votes</p>
+      <Title text="Anecdote of the day" />
+      <Anecdote anecdote={anecdotes[selected]} votes={vote[selected]}/>
+      <Button onClick={voteQuote} text="Vote" />
+      <Button onClick={cycleItem} text="Next Anecdote" />
+      <Title text="Anecdote with the most votes" />
+      <Anecdote anecdote={anecdotes[LargestIndex(vote)]}votes={vote[LargestIndex(vote)]}/>
     </div>
   )
 }
