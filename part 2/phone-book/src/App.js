@@ -13,31 +13,27 @@ function App() {
   const [newNumber, setNewNumber] = useState("")
   const addPerson = (event) => {
     event.preventDefault()
-    console.log("person added", event.target)
     const contacts = {
       name : newName,
       id : persons.length+1,
       number : newNumber
     }
-    if ( persons.find(person => person.name === newName)===undefined) {
+    if ( persons.find(person => person.name === newName)===undefined && newNumber != "") {
       setPersons(persons.concat(contacts))
       setNewName("")
+    } else if  (newNumber === "") {
+    alert("Please enter the number")
     } else
-     alert(`${newName} is already added to phonebook`)
-      
+    alert(`${newName} is already added to phonebook`)   
   }
 
-
   const newValueChange = (event) => {
-
     console.log(event.target.value)
     setNewName(event.target.value)
-
   }
   const newNumberChange = (e) => {
     console.log(e.target.value)
     setNewNumber(e.target.value)
-
   }
 
   return (
