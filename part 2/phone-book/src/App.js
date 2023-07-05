@@ -4,24 +4,26 @@ import './App.css';
 function App() {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas',
-      number : +90-552-8985666,
+      number : 8985666,
       id: 1
   }
   ])
 
   const [newName, setNewName] = useState('enter a name')
-  
+  const [newNumber, setNewNumber] = useState("")
   const addPerson = (event) => {
     event.preventDefault()
     console.log("person added", event.target)
     const contacts = {
       name : newName,
-      id : persons.length+1
+      id : persons.length+1,
+      number : newNumber
     }
     if ( persons.find(person => person.name === newName)===undefined) {
       setPersons(persons.concat(contacts))
       setNewName("")
-    } alert(`${newName} is already added to phonebook`)
+    } else
+     alert(`${newName} is already added to phonebook`)
       
   }
 
@@ -32,13 +34,19 @@ function App() {
     setNewName(event.target.value)
 
   }
+  const newNumberChange = (e) => {
+    console.log(e.target.value)
+    setNewNumber(e.target.value)
+
+  }
 
   return (
     <>
     <h2>Phonebook</h2>
     <form onSubmit={addPerson}>
       <>
-      name: <input onChange={newValueChange} />
+      <p>name: <input onChange={newValueChange} /></p>
+      <p>number: <input onChange={newNumberChange} /></p>
       </>
       <>
       <button type="submit" >add</button>
@@ -48,7 +56,7 @@ function App() {
     <ul>
     {persons.map(person =>
       <li key={person.id}>
-        {person.name}
+        {person.name} {person.number}
       </li>
       )}
       
