@@ -1,15 +1,12 @@
-console.log("hello");
 
 const http = require('http')
-const express = require('express');
+const express = require('express');//importing 
 const { log } = require('console');
 const app = express()
 const PORT = 3002
 app.listen(PORT)
 console.log(`Running on ${PORT}`);
 app.use(express.json())
-
-
 
 let persons = [
     { 
@@ -43,7 +40,14 @@ const generateId = () => {
 
 app.get('/api/persons', (request, response) => {
     response.json(persons)
-    console.log(request.body);
+})
+
+app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const person = persons.find(p => p.id ===id) 
+    if (person) {
+        response.json(person)
+    } response.status(404).end()
 })
 
 
@@ -66,3 +70,14 @@ app.post('/api/notes', (request, response) => {
     console.log(body);
     response.json(person)
 })
+
+const info = 
+`<h1>Phonebook has info for ${persons.length}  people </h1>
+<p>${new Date()}</p>`
+
+app.get('/api/info', (request, response) => {
+    response.send(info)
+})
+
+console.log("hello");
+console.log(persons.length);
