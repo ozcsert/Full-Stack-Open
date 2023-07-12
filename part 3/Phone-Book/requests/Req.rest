@@ -1,0 +1,10 @@
+POST http://localhost:3002/api/persons HTTP/1.1
+content-type: application/json
+
+{
+    "content": "test2",
+    "important": true,
+}
+###
+
+GET http://localhost:3002/api/persons
