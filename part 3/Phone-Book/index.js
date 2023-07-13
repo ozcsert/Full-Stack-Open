@@ -1,11 +1,30 @@
 
 const http = require('http')
-const express = require('express');//importing 
+const express = require('express');
 const { log } = require('console');
 const app = express()
+const morgan = require('morgan')
 const PORT = 3002
 app.listen(PORT)
 console.log(`Running on ${PORT}`);
+
+morgan.token('id', function getId(req) {
+    return req.id
+})
+
+morgan.token('post-data', (req) => {
+    return JSON.stringify(req.body)
+})
+
+//creates and 
+const assignId = (req, res, next) => {
+     req.id = generateId()
+     next()}
+//assignsID to the request itself
+app.use(assignId)
+
+app.use(morgan(':id :method :url :response-time :post-data'))
+
 app.use(express.json())
 
 let persons = [
@@ -32,11 +51,14 @@ let persons = [
 ]
 
 const generateId = () => {
-    const maxId = persons.length > 0
-    ? Math.max(...persons.map(p => p.id))
-    : 0
-    return maxId + 1 
+    const Id = Math.floor(Math.random() * 9999999999)
+    return Id
 }
+
+  app.use((req, res, next) => {
+    console.log('Time:', Date.now())
+    next()
+  })
 
 app.get('/api/persons', (request, response) => {
     response.json(persons)
@@ -50,24 +72,29 @@ app.get('/api/persons/:id', (request, response) => {
     } response.status(404).end()
 })
 
+app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    persons = persons.filter(p => p.id !== id)
+    response.status(204).end()
+})
 
-app.post('/api/notes', (request, response) => {
+app.post('/api/persons', (request, response) => {
     const body = request.body
-
-    if (!body.name) {
-        return response.status(404).json({
-            error: "name missing"
-        })
-    }
-    
     const person = {
         id: generateId(),
         name: body.name,
         number: body.number
     }
 
+    if (!body.name || !body.number) {
+        return response.status(404).json({
+            error: "name or number missing"
+        })
+    } else if (persons.find(p => p.name === body.name)) {
+        return response.status(404).json({
+            error: "name already exists."
+        })} else 
     persons = persons.concat(person)
-    console.log(body);
     response.json(person)
 })
 
@@ -79,5 +106,3 @@ app.get('/api/info', (request, response) => {
     response.send(info)
 })
 
-console.log("hello");
-console.log(persons.length);
