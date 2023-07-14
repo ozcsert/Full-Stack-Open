@@ -4,9 +4,15 @@ const express = require('express');
 const { log } = require('console');
 const app = express()
 const morgan = require('morgan')
-const PORT = 3002
-app.listen(PORT)
-console.log(`Running on ${PORT}`);
+
+const cors = require('cors')
+
+
+
+
+app.use(cors())
+
+app.use(express.static('build'))
 
 morgan.token('id', function getId(req) {
     return req.id
@@ -30,22 +36,22 @@ app.use(express.json())
 let persons = [
     { 
       id: 1,
-      name: "Arto Hellas", 
+      name: "Vincent Vega", 
       number: "040-123456"
     },
     { 
       id: 2,
-      name: "Ada Lovelace", 
+      name: "Coral Neptune", 
       number: "39-44-5323523"
     },
     { 
       id: 3,
-      name: "Dan Abramov", 
+      name: "Suzanne Vega", 
       number: "12-43-234345"
     },
     { 
       id: 4,
-      name: "Mary Poppendieck", 
+      name: "Garip Kont", 
       number: "39-23-6423122"
     }
 ]
@@ -106,3 +112,7 @@ app.get('/api/info', (request, response) => {
     response.send(info)
 })
 
+const PORT = process.env.PORT || 3002
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
