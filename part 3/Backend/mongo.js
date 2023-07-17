@@ -1,3 +1,6 @@
+//is only being used to test the DB, IS NOT connected
+//to backend
+
 const mongoose = require('mongoose')
 
 const password = process.argv[2]
@@ -27,7 +30,7 @@ const contactcreate = (argv3, argv4) => {
 }
 
 //prints the data of the target db 
-//run node mongo &{password}
+//run node mongo ${password}
 const info = () => { 
     Contact.find({}).then(result => {
     result.forEach(note => {
@@ -39,16 +42,17 @@ const info = () => {
   }
 
 //saves new data to the target db
-//run node mongo &{"name"} &{number}
+//run node mongo ${"name"} ${number}
 const add = () => {
     contactcreate(argv[3],argv[4]).save().then(result => {
     console.log(`added ${argv[3]} number ${argv[4]} to phonebook`)
     mongoose.connection.close()
 })}
 
-
 if (argv.length === 3 && argv[2] === password) {
     return info()
 } else {
     return add()
 }
+
+

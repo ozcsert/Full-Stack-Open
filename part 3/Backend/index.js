@@ -1,15 +1,18 @@
+const mongoose = require('mongoose')
+
+//imports .env
+require('dotenv').config()
 
 const http = require('http')
 const express = require('express');
 const { log } = require('console');
 const app = express()
 const morgan = require('morgan')
-
 const cors = require('cors')
 
-
-
-
+//imports the mongoose module
+const Contact = require('./models/contact');
+const contact = require('./models/contact');
 app.use(cors())
 
 app.use(express.static('build'))
@@ -33,28 +36,6 @@ app.use(morgan(':id :method :url :response-time :post-data'))
 
 app.use(express.json())
 
-let persons = [
-    { 
-      id: 1,
-      name: "Vincent Vega", 
-      number: "040-123456"
-    },
-    { 
-      id: 2,
-      name: "Coral Neptune", 
-      number: "39-44-5323523"
-    },
-    { 
-      id: 3,
-      name: "Suzanne Vega", 
-      number: "12-43-234345"
-    },
-    { 
-      id: 4,
-      name: "Garip Kont", 
-      number: "39-23-6423122"
-    }
-]
 
 const generateId = () => {
     const Id = Math.floor(Math.random() * 9999999999)
@@ -67,15 +48,20 @@ const generateId = () => {
   })
 
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    Contact.find({}).then(contacts => {
+    response.json(contacts)
+    })
 })
 
 app.get('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const person = persons.find(p => p.id ===id) 
-    if (person) {
-        response.json(person)
-    } response.status(404).end()
+    Contact.findById(request.params.id).then(contact => {
+        response.json(contact)
+    })
+//    const id = Number(request.params.id)
+//    const person = persons.find(p => p.id ===id) 
+    //if (person) {
+    //    response.json(person)
+    //} response.status(404).end()
 })
 
 app.delete('/api/persons/:id', (request, response) => {
@@ -86,27 +72,25 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
-    const person = {
-        id: generateId(),
-        name: body.name,
-        number: body.number
-    }
+    console.log(body);
+        if (body.name === undefined) {
+            return response.status(404).json({
+                error: "content missing"
+            })
+        }
 
-    if (!body.name || !body.number) {
-        return response.status(404).json({
-            error: "name or number missing"
+        const contact = new Contact ({
+            name: body.name,
+            number: body.number 
         })
-    } else if (persons.find(p => p.name === body.name)) {
-        return response.status(404).json({
-            error: "name already exists."
-        })} else 
-    persons = persons.concat(person)
-    response.json(person)
+        
+        contact.save().then(savedContact =>
+            response.json(savedContact))
 })
 
-const info = 
-`<h1>Phonebook has info for ${persons.length}  people </h1>
-<p>${new Date()}</p>`
+//const info = 
+//`<h1>Phonebook has info for ${persons.length}  people </h1>
+//<p>${new Date()}</p>`
 
 app.get('/api/info', (request, response) => {
     response.send(info)
