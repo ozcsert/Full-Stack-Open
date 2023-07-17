@@ -65,9 +65,14 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    persons = persons.filter(p => p.id !== id)
-    response.status(204).end()
+    Contact.findByIdAndDelete(request.params.id)
+    .then(result => {
+      console.log(response.status(204).end);
+    })
+    .catch(error => next(error))
+    //const id = Number(request.params.id)
+    //persons = persons.filter(p => p.id !== id)
+    //response.status(204).end()
 })
 
 app.post('/api/persons', (request, response) => {
@@ -88,6 +93,19 @@ app.post('/api/persons', (request, response) => {
             response.json(savedContact))
 })
 
+app.put('/api/persons/:id', (request, response, next) => {
+    const body = request.body
+    const contact = {
+      name: body.name,
+      number: body.number
+    }
+    Contact.findByIdAndUpdate(request.params.id, contact )
+      .then(updatedContact => {
+        response.json(updatedContact)
+      })
+      .catch(error => next(error))
+  })
+
 //const info = 
 //`<h1>Phonebook has info for ${persons.length}  people </h1>
 //<p>${new Date()}</p>`
@@ -100,3 +118,18 @@ const PORT = process.env.PORT || 3002
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+
+const errorHandler = (error, request, response, next) => {
+    
+    console.error(error.message)
+  
+    if (error.name === 'CastError') {
+      return response.status(400).send({ error: 'malformatted id' })
+    } 
+  
+    next(error)
+  }
+  
+  // this has to be the last loaded middleware.
+  app.use(errorHandler)
