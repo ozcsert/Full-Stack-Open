@@ -16,9 +16,24 @@ mongoose.connect(url)
 
 //number is stored as a string because
 //dash is problematic to store as an integer
+
+//custom validator set
+const validator = (val) => val.charAt(2) === "-" 
+|| val.charAt(3) === "-"
+
+const custom = [validator, 'Uh oh, the number is not formatted correctly(Valid: 00-0... or 000-0...).']
+
 const contactSchema = new mongoose.Schema({
-    name: String,
-    number: String
+    name: {
+    type : String,
+    minLength : 3,
+    required : true
+},
+    number: {
+        type : String,
+        minLength : 8,
+        validate: custom
+    }
 })
 
 //transforms the _id property to a string. It was an object.

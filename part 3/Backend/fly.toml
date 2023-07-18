@@ -1,10 +1,14 @@
-# fly.toml app configuration file generated for phonebookopio on 2023-07-14T12:26:14+03:00
+# fly.toml app configuration file generated for phonebookv222232524 on 2023-07-18T19:12:27+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "phonebookopio"
+app = "phonebookv222232524"
 primary_region = "ams"
+
+[env] 
+PORT = "8080"
+
 
 [http_service]
   internal_port = 8080

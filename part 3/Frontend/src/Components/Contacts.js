@@ -2,7 +2,7 @@
 const Contacts = ({newFilter, persons, filteredPersons, deleteContactOf}) => {
     return (
       <ul>
-      {(newFilter === "filter by..." || newFilter == "") 
+      {(newFilter === "filter by..." || newFilter === "") 
       ?
       persons.map(person =>
         <li key={person.id}>

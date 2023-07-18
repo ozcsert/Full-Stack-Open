@@ -33,7 +33,7 @@ const App = () => {
       number : newNumber
     }
 
-    if (persons.find(person => person.name.toUpperCase() === newName.toUpperCase())===undefined && newNumber != "and the number..." && newNumber != "") {
+    if ((persons.find(person => person.name.toUpperCase() === newName.toUpperCase())===undefined) && (newNumber !== "and the number..." && newNumber !== "")) {
       personService //Adds new entries to db.json
         .create(contacts)
         .then(response => {
@@ -45,7 +45,14 @@ const App = () => {
             setMessage(null)
           }, 5000)
         },[])
-    } else if  (persons.find(person => person.name.toUpperCase() === newName.toUpperCase())!== ""  && newNumber === "and the number..." || newNumber === "") {
+        .catch((error) => {
+            setMessage(
+              `Format Error: Name should at least be 3 characters. Number has to include dashes.`
+            )
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)})
+    } else if  ((persons.find(person => person.name.toUpperCase() === newName.toUpperCase())!== "")  && (newNumber === "and the number..." || newNumber === "")) {
         alert("Please enter the number") 
     } else if (persons.find(person => person.name.toUpperCase() === newName.toUpperCase())) {
           if (window.confirm(`${newName.name} is already added to the phonebook, replace the old number with a new one ?`)) {
@@ -99,7 +106,7 @@ const App = () => {
 
   const updateContact = (id) => {
     const indexOfPerson = persons.map(e => e.name.toUpperCase()).indexOf(`${newName.toUpperCase()}`);
-    const person = persons.filter((person) => person.name === newName)
+    //const person = persons.filter((person) => person.name === newName)
     const obj = {number:newNumber}
     const changedPerson = {...persons[indexOfPerson], ...obj}//Object.assign(person, obj)
     personService //Api call to db to update the entry.
@@ -123,7 +130,7 @@ const App = () => {
         })
 }
 
-  const filteredPersons = persons.filter(person => person.name.toUpperCase().includes(newFilter.toUpperCase() || newFilter == 'filter by...'))
+  const filteredPersons = persons.filter(person => person.name.toUpperCase().includes(newFilter.toUpperCase() || newFilter === 'filter by...'))
   
   return (
     <>
@@ -137,5 +144,20 @@ const App = () => {
     </>
   );
 }
+
+
+//const errorHandler = (error, request, response, next) => {
+//    
+//  console.error(error.message)
+//
+//  if (error.name === 'ValidationError') {
+//    return response.status(400).json({ setMessage("Validation Failed")})
+//  }
+//
+//  next(error)
+//}
+
+// this has to be the last loaded middleware.
+//app.use(errorHandler)
 
 export default App;
