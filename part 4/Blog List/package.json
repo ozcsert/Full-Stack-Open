@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "\"echo \\\"Error: no test specified\\\" && exit\" ",
-    "lint": "eslint . "
+    "lint": "eslint . ",
+    "test": "jest --verbose"
   },
   "author": "Ozcan Sert",
   "license": "MIT",
@@ -19,5 +19,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
