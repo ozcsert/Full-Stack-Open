@@ -1,10 +1,12 @@
-require('dotenv').config()
+require("dotenv").config()
+const config = require('./utils/config')
 
 
-const express = require('express')
+const express = require("express")
 const app = express()
-const cors = require('cors')
-const mongoose = require('mongoose')
+const cors = require("cors")
+const mongoose = require("mongoose")
+const { MONGODB_URI } = require("./utils/config")
 
 const blogSchema = new mongoose.Schema({
   title: String,
@@ -14,15 +16,27 @@ const blogSchema = new mongoose.Schema({
 })
 
 
-const Blog = mongoose.model('Blog', blogSchema)
+const Blog = mongoose.model("Blog", blogSchema)
 
-const mongoUrl = process.env.MONGODB_URI
-mongoose.connect(mongoUrl)
+const blog = new Blog(
+  {
+    title: "test",
+    author: "test",
+    url: "test",
+    likes: 3
+  }
+)
+
+blog.save().then (result => {
+  console.log("saved")})
+
+
+mongoose.connect(MONGODB_URI)
 
 app.use(cors())
 app.use(express.json())
 
-app.get('/api/blogs', (request, response) => {
+app.get("/api/blogs", (request, response) => {
   Blog
     .find({})
     .then(blogs => {
@@ -30,7 +44,7 @@ app.get('/api/blogs', (request, response) => {
     })
 })
 
-app.post('/api/blogs', (request, response) => {
+app.post("/api/blogs", (request, response) => {
   const blog = new Blog(request.body)
 
   blog
@@ -40,7 +54,13 @@ app.post('/api/blogs', (request, response) => {
     })
 })
 
-PORT = process.env.PORT || 8080
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+
+app.listen(config.PORT, () => {
+  console.log(`Server running on port ${config.PORT}`)
 })
+
+
+
+
+
+
