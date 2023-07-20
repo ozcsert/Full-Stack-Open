@@ -52,13 +52,35 @@ const blogPosts = [
   }
 ]
 
-
-
 describe("total likes", () => {
   test("of empty list is zero", () => {
     const result = listHelper.totalLikes([])
     expect(result).toBe(0)
   })
+  test('when list has only one blog, equals the likes of that', () => {
+    const blog = blogPosts[0]
+    const result = listHelper.totalLikes([blog])
+    expect(result).toBe(blog.likes)
+  })
+  test('of a bigger list is calculated right', () => {
+    const result = listHelper.totalLikes(blogPosts)
+    expect(result).toEqual(36)
+  })
 })
 
+describe("favorite blog", () => {
+
+  test('of empty list is zero', () => {
+    const result = listHelper.favoriteBlog([])
+    expect(result).toEqual({})
+  })
+  test('when list has only one blog, equals of the likes of that', () => {
+    const result = listHelper.favoriteBlog([blogPosts[0]])
+    expect(result).toEqual(blogPosts[0])
+  })
+  test("of a bigger list is calculated right", () => {
+    const result = listHelper.favoriteBlog(blogPosts)
+    expect(result).toEqual(blogPosts[2])
+  })
+})
 
