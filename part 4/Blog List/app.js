@@ -11,9 +11,11 @@ mongoose.set("strictQuery", false)
 mongoose.connect(config.MONGODB_URI)
   .then(() => {
     logger.info("connected to MongoDB")
+    
   })
   .catch((error) => {
     logger.error("error connection to mongo" , error.message)
+    
   })
 
 

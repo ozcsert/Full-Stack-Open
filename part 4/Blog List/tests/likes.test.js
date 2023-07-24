@@ -52,11 +52,15 @@ const blogPosts = [
   }
 ]
 
+console.log("test")
+
 describe("total likes", () => {
   test("of empty list is zero", () => {
     const result = listHelper.totalLikes([])
     expect(result).toBe(0)
+    
   })
+  
   test('when list has only one blog, equals the likes of that', () => {
     const blog = blogPosts[0]
     const result = listHelper.totalLikes([blog])
@@ -70,9 +74,11 @@ describe("total likes", () => {
 
 describe("favorite blog", () => {
 
+  
   test('of empty list is zero', () => {
     const result = listHelper.favoriteBlog([])
     expect(result).toEqual({})
+    console.log(result)
   })
   test('when list has only one blog, equals of the likes of that', () => {
     const result = listHelper.favoriteBlog([blogPosts[0]])
@@ -83,4 +89,6 @@ describe("favorite blog", () => {
     expect(result).toEqual(blogPosts[2])
   })
 })
+
+
 
