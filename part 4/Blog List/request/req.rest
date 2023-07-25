@@ -3,8 +3,8 @@ content-type: application/json
 
 {
     "title": "awdsdetest4",
-    "author": "asdawdt",
-    "url": "agawdt",
+    "author": "asdawdt"
+    
 }
 ###
 
