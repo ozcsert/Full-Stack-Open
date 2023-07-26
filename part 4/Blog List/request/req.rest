@@ -2,8 +2,8 @@ POST http://localhost:3004/api/blogs HTTP/1.1
 content-type: application/json
 
 {
-    "title": "awdsdetest4",
-    "author": "asdawdt"
+    "title": "awdsdeawdtest4",
+    "author": "asdaasdwdt"
     
 }
 ###
@@ -17,4 +17,18 @@ GET http://localhost:3002/api/info
 
 
 ###
-DELETE http://localhost:3002/api/persons/:id
+DELETE http://localhost:3004/api/blogs/6
+
+
+###
+PUT http://localhost:3004/api/blogs/64b7d77c083e9a1ad63120d5
+content-type: application/json
+
+    {
+        "title": "test",
+        "author": "test",
+        "url": "test",
+        "likes": 9,
+        "id": "64b7d77c083e9a1ad63120d5"
+}
+
