@@ -10,7 +10,6 @@ blogsRouter.get("/", (request, response) => {
     })
 })
 
-
 blogsRouter.get("/:id", async (request, response, next) => {
   try {
     const blog = await Blog.findById(request.params.id)
