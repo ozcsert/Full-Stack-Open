@@ -24,7 +24,6 @@ userRouter.post('/', async (request, response, next) => {
     }
 })
 
-
 userRouter.get('/', async (request, response, next) => {
     
     try {
