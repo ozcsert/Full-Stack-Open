@@ -32,16 +32,15 @@ content-type: application/json
         "id": "64b7d77c083e9a1ad63120d5"
 }
 
-
 ###
 
 POST http://localhost:3004/api/users HTTP/1.1
 content-type: application/json
 
 {
-    "username": "SusSuz",
-    "name": "Suzanne Vega",
-    "password": "TomsDiner"
+    "username": "Garipboi",
+    "name": "Garip Kont",
+    "password": "Bark"
 }
 ###
 
