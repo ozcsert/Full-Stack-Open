@@ -1,10 +1,12 @@
 POST http://localhost:3004/api/blogs HTTP/1.1
-content-type: application/json
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdhcmlwYm9pIiwiaWQiOiI2NGMzOTI0MjM0NjZmY2MzNzI5MDMxMzMiLCJpYXQiOjE2OTA1NTAxNzd9._yZ7-irh4_niY5XRvP2fBTe2qJqGVl6T2OvE0Gyhcms
 
 {
-    "title": "awdsdeawdtest4",
-    "author": "asdaasdwdt"
-    
+    "title": "Token test",
+    "author": "asdaasdwdt",
+    "url": "test",
+    "userId": "64c392423466fcc372903133"
 }
 ###
 
@@ -25,7 +27,7 @@ PUT http://localhost:3004/api/blogs/64b7d77c083e9a1ad63120d5
 content-type: application/json
 
     {
-        "title": "test",
+        "title": "Populate Test",
         "author": "test",
         "url": "test",
         "likes": 9,
@@ -42,5 +44,15 @@ content-type: application/json
     "name": "Garip Kont",
     "password": "Bark"
 }
+###
+
+POST http://localhost:3004/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Garipboi",
+    "password": "Bark"
+}
+
 ###
 
