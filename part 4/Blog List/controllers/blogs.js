@@ -21,8 +21,8 @@ blogsRouter.get("/:id", async (request, response, next) => {
 })
 
 blogsRouter.post("/", async (request, response, next) => {
-  const body = request.body
 
+  const body = request.body
   // blog.likes
   // ? blog.likes = blog.likes
   // : blog.likes = 0
@@ -31,7 +31,7 @@ blogsRouter.post("/", async (request, response, next) => {
   //the object includes the username and id.
   const decodedToken = jwt.verify(token , process.env.SECRET)
   
-  if (!decodedToken.id) {
+  if (!decodedToken) {
     return response.status(401).json({ error: 'token invalid' })
   }
 console.log(decodedToken);
@@ -65,17 +65,32 @@ console.log(decodedToken);
 })
 
 
-blogsRouter.delete("/:id", async (request, response, next) => {
+blogsRouter.delete("/:id", async (request, response, next) => { 
+
+  const token = request.token
+  
+  //verifies the token and decodes it, returning an object
+  //the object includes the username and id.
+  const decodedToken = jwt.verify(token , process.env.SECRET)
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
 
   try {
-    const deletedBlog = await Blog.findByIdAndRemove(request.params.id)
+    const deletedBlog = await Blog.findById(request.params.id)
+    if (decodedToken.id === deletedBlog.user) {
+    await Blog.findByIdAndDelete(request.params.id)
     response.status(204).end()
     logger.info(`${deletedBlog.title} is removed from the blog list`)
+    }
+    else {
+      response.status(401).json({ error: 'You can only delete your own posts' })
+    }
   } catch (exception) {
     next (exception)
   }
 })
-
 
 blogsRouter.put("/:id", async (request, response, next) => {
   const body = request.body

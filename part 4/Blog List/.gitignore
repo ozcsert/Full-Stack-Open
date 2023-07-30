@@ -8,4 +8,5 @@
 .Dockerfile
 .fly.toml
 .mongo.js
-.eslintrc
+.eslintrc.js
+.package-lock.json

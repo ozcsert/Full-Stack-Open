@@ -1,12 +1,14 @@
 POST http://localhost:3004/api/blogs HTTP/1.1
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdhcmlwYm9pIiwiaWQiOiI2NGMzOTI0MjM0NjZmY2MzNzI5MDMxMzMiLCJpYXQiOjE2OTA1NTAxNzd9._yZ7-irh4_niY5XRvP2fBTe2qJqGVl6T2OvE0Gyhcms
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RVc2VyIiwiaWQiOiI2NGM2MmJmNWM5MGJlZGUzNWEyY2VlZmUiLCJpYXQiOjE2OTA3MDkwMDd9.BsGrMXFNfQQc-WrYiduuVXa3hTk4j6CgbwpG3QJ0NnQ
+// Putin eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlB1dGluIiwiaWQiOiI2NGM2MzZmMjdjZDU2NjQ1MjlkZmYwMGUiLCJpYXQiOjE2OTA3MTE4MDMsImV4cCI6MTY5MDcxNTQwM30.EULhygwygIdMY8466LVcbPfUJ8k72jHuVw8ses7S9VU
+//testUser eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RVc2VyIiwiaWQiOiI2NGM2MmJmNWM5MGJlZGUzNWEyY2VlZmUiLCJpYXQiOjE2OTA3MDkwMDd9.BsGrMXFNfQQc-WrYiduuVXa3hTk4j6CgbwpG3QJ0NnQ
 
 {
-    "title": "Token test",
+    "title": "Tests Blog",
     "author": "asdaasdwdt",
     "url": "test",
-    "userId": "64c392423466fcc372903133"
+    "userId": "64c38c4e31bceed56748492a"
 }
 ###
 
@@ -19,8 +21,11 @@ GET http://localhost:3002/api/info
 
 
 ###
-DELETE http://localhost:3004/api/blogs/6
-
+DELETE http://localhost:3004/api/blogs/64b7d3b5c37ad1f33ed5b364
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdhcmlwYm9pIiwiaWQiOiI2NGMzOTI0MjM0NjZmY2MzNzI5MDMxMzMiLCJpYXQiOjE2OTA3MTM1MzAsImV4cCI6MTY5MDcxNzEzMH0.C9TwV6etMTa15B76W9AN609bQsW0R6wfnz8W2TV3sqI
+// Putin eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlB1dGluIiwiaWQiOiI2NGM2MzZmMjdjZDU2NjQ1MjlkZmYwMGUiLCJpYXQiOjE2OTA3MTE4MDMsImV4cCI6MTY5MDcxNTQwM30.EULhygwygIdMY8466LVcbPfUJ8k72jHuVw8ses7S9VU
+//testUser eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RVc2VyIiwiaWQiOiI2NGM2MmJmNWM5MGJlZGUzNWEyY2VlZmUiLCJpYXQiOjE2OTA3MDkwMDd9.BsGrMXFNfQQc-WrYiduuVXa3hTk4j6CgbwpG3QJ0NnQ
+//garip eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdhcmlwYm9pIiwiaWQiOiI2NGMzOTI0MjM0NjZmY2MzNzI5MDMxMzMiLCJpYXQiOjE2OTA3MTM1MzAsImV4cCI6MTY5MDcxNzEzMH0.C9TwV6etMTa15B76W9AN609bQsW0R6wfnz8W2TV3sqI
 
 ###
 PUT http://localhost:3004/api/blogs/64b7d77c083e9a1ad63120d5
@@ -40,9 +45,9 @@ POST http://localhost:3004/api/users HTTP/1.1
 content-type: application/json
 
 {
-    "username": "Garipboi",
-    "name": "Garip Kont",
-    "password": "Bark"
+    "username": "Putin",
+    "name": "Putin",
+    "password": "putin"
 }
 ###
 

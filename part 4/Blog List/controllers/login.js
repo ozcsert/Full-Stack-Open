@@ -21,7 +21,7 @@ loginRouter.post('/', async (request, response) => {
     }
     //this token will be sent from the browser to the server.
     //by using auth header.
-    const token = jwt.sign(tokenForUser, process.env.SECRET)
+    const token = jwt.sign(tokenForUser, process.env.SECRET, { expiresIn: 60*60 })
 
     response.status(200)
     .send({ token, username: user.username, name: user.name })
