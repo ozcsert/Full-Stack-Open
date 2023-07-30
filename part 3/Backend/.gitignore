@@ -2,6 +2,7 @@
 /node_modules
 .dockerignore
 .env
-Dockerfile
-fly.toml
-mongo.js
+.Dockerfile
+.fly.toml
+.mongo.js
+.package-lock.json
