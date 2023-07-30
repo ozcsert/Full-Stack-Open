@@ -9,4 +9,4 @@
 .fly.toml
 .mongo.js
 .eslintrc.js
-.package-lock.json
+package-lock.json
