@@ -1,0 +1,3 @@
+    running cross-env packagage in dev mode will cause
+    problems if you deploy the app on fly.io/render
+    npm install cross-env
