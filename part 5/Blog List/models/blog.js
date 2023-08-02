@@ -12,8 +12,11 @@ const blogSchema = new mongoose.Schema({
   },
   likes: Number,
   user: {
-    type: String,
-    ref: "User"
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    username: String
   }
 })
 

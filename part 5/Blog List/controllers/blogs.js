@@ -43,7 +43,9 @@ console.log(decodedToken);
     "author": body.author,
     "url": body.url,
     "likes": body.likes ? body.likes: 0,
-    "user": user.id
+    "user": {
+      "id": user.id,
+    "username": user.username}
   })
 
   try {
