@@ -2,20 +2,18 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
-//import Togglable from './components/Togglable'
+import Togglable from './components/Togglable'
 import LoginForm from './components/LoginForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [newBlog, setNewBlog] = useState([])
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
   const [user, setUser] = useState(null)
   const [error, setErrorMessage] = useState("er")
   const [title, setTitle] = useState("")
   const [author, setAuthor] = useState("")
   const [url, setUrl] = useState("")
-  const [loginVisible, setLoginVisible]= useState(false)
+ // const [loginVisible, setLoginVisible]= useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -34,18 +32,11 @@ const App = () => {
     }
   }, [])
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    console.log("logged in with", {username}, {password});
-
+  const handleLogin = async (createUser) => {
     try {
-      const user = await loginService.login({
-        username, password
-      })
+      const user = await loginService.login(createUser)
       console.log(user);
       blogService.setToken(user.token)
-      setUsername("")
-      setPassword("")
       setUser(user)
       window.localStorage.setItem(
         'loggedBlogUser', JSON.stringify(user))
@@ -80,7 +71,7 @@ const App = () => {
     switch (target.name) {
       case "title":
         setTitle(target.value);
-       break;
+      break;
       case "author":
         setAuthor(target.value);
         break;
@@ -118,95 +109,28 @@ const App = () => {
 //  setNotes(notes.concat(returnedNote))
 //  setNewNote('')
 
-  const handleUsernameChange = (event) => {
-    event.preventDefault()
-    console.log(event.target.value);
-    setUsername(event.target.value)
-    console.log(user);
-  }
 
-  const handlePasswordChange = (event) => {
-    event.preventDefault()
-    console.log(event.target.value);
-    setPassword(event.target.value)
-    console.log(user);
-  }
 
-//
-//  const loginForm = () => {
-//
-//    return (
-//    
-//     <div>
-//      <LoginForm 
-//      username={username}
-//      password={password}
-//      handleUsernameChange={handleUsernameChange}
-//      handlePasswordChange={handlePasswordChange}
-//      handleSubmit={(event) => {event.preventDefault()}}
-//      />
-//      </div>
-//    )
-//  }
 
-const loginForm = () => {
-  const hideWhenVisible = { display: loginVisible ? 'none' : '' }
-  const showWhenVisible = { display: loginVisible ? '' : 'none' }
-
-  return (
+  const loginForm = () => {
+    
+    return (
     <div>
-      <div style={hideWhenVisible}>
-        <button onClick={() => setLoginVisible(true)}>log in</button>
-      </div>
-      <div style={showWhenVisible}>
-        <LoginForm
-          username={username}
-          password={password}
-          handleUsernameChange={({ target }) => setUsername(target.value)}
-          handlePasswordChange={({ target }) => setPassword(target.value)}
-          handleSubmit={handleLogin}
-        />
-        <button onClick={() => setLoginVisible(false)}>cancel</button>
-      </div>
-    </div>
-  )
-}
+      <Togglable buttonLabel= "reveal">
+        <LoginForm 
+        createUser={handleLogin}/>
+      </Togglable>
+    </div> 
+    )
+    }
 
-
-//  const loginForm = () => {
-//  
-//
-//    return (
-//   
-//        <div>
-//            <h1>Login</h1>
-//            <form onSubmit={handleLogin}>
-//            <div>
-//             username
-//             <input
-//             type="text"
-//             name="Username"
-//             value={username}
-//             onChange={handleUsernameChange}
-//             />
-//           </div>
-//           <div>
-//             password
-//             <input
-//             type="text"
-//             value={password}
-//             name="Password"
-//             onChange={handlePasswordChange}
-//             />
-//           </div>
-//           <button type="submit">login</button>
-//         </form>
-//        </div>
-//       
-//       )
-//    }
-
-
+    //<LoginForm 
+    //username={username}
+    //password={password}
+    //handleUsernameChange={handleUsernameChange}
+    //handlePasswordChange={handlePasswordChange}
+    //handleSubmit={handleLogin}
+    ///>
 
   const blogList = () => {
     return (
