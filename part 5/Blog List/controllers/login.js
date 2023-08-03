@@ -22,10 +22,11 @@ loginRouter.post('/', async (request, response) => {
         username : user.username,
         id: user._id
     }
+    console.log(tokenForUser);
     //this token will be sent from the browser to the server.
     //by using auth header.
     const token = jwt.sign(tokenForUser, process.env.SECRET, { expiresIn: 60*60 })
-
+    
     response.status(200)
     .send({ token, username: user.username, name: user.name })
 

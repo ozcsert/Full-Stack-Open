@@ -3,6 +3,7 @@ const Blog = require("../models/blog")
 const logger = require("../utils/logger")
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
+const mongoose = require ('mongoose')
 
 blogsRouter.get("/", async (request, response) => {
     const blogs = await Blog
@@ -31,13 +32,12 @@ blogsRouter.post("/", async (request, response, next) => {
   //the object includes the username and id.
   const decodedToken = jwt.verify(token , process.env.SECRET)
   
+ 
   if (!decodedToken) {
     return response.status(401).json({ error: 'token invalid' })
   }
-console.log(decodedToken);
-  const user = await User.findById(decodedToken.id)
 
-  console.log(user);
+  const user = await User.findById(decodedToken.id)
   const blog = new Blog({
     "title": body.title,
     "author": body.author,
@@ -67,21 +67,25 @@ console.log(decodedToken);
 })
 
 
-blogsRouter.delete("/:id", async (request, response, next) => { 
-
+blogsRouter.delete("/:id", async (request, response, next) => {
+ 
   const token = request.token
-  
   //verifies the token and decodes it, returning an object
   //the object includes the username and id.
   const decodedToken = jwt.verify(token , process.env.SECRET)
 
+
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token invalid' })
   }
-
+  
   try {
     const deletedBlog = await Blog.findById(request.params.id)
-    if (decodedToken.id === deletedBlog.user) {
+    deletedBlog.populate("user", {username: 1,name:1})
+   // deletedBlog.user.id.toString()
+  //  console.log(decodedToken.id === deletedBlog.user.id.toString());
+
+    if (decodedToken.id === deletedBlog.user.id.toString()) {
     await Blog.findByIdAndDelete(request.params.id)
     response.status(204).end()
     logger.info(`${deletedBlog.title} is removed from the blog list`)
@@ -93,6 +97,7 @@ blogsRouter.delete("/:id", async (request, response, next) => {
     next (exception)
   }
 })
+
 
 blogsRouter.put("/:id", async (request, response, next) => {
   const body = request.body
