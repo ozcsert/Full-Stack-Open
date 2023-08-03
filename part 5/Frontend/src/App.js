@@ -9,21 +9,7 @@ import BlogForm from './components/BlogForm'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [error, setErrorMessage] = useState("er")
-
-  //const [blogLoading, setBlogLoading] = useState(false)
- // const [loginVisible, setLoginVisible]= useState(false)
-
-//  useEffect(() => {
-//
-//    const loadData = async () => {
-//    const response = await blogService.getAll()
-//    setBlogs(response)
-//    //console.log(blogs[blogs.length - 1].user.username);
-//    if ( blogs[blogs.length - 1].user.username = undefined ) {
-//      loadData()
-//    } 
-//}   }, [])
+  const [error, setErrorMessage] = useState("")
 
 useEffect(() => {
   const loadData = async () => {
@@ -93,22 +79,29 @@ useEffect(() => {
 }
 
 const updateLikes = async (blogToUpdate) => {
-    //const blog = blogs.find(b => b.id === id)
-    console.log(blogToUpdate.id);
-    //try {
-    
+
     const request = await blogService.update(blogToUpdate, blogToUpdate.id)
     setErrorMessage(`Blog ${blogToUpdate.title} was succesfully updated`)
-    
     setBlogs(blogs.map(blog => blog.id !== blogToUpdate.id ? blog : request))
-   
-   // } catch (exception) {
-    //  setErrorMessage(`Cannot update ${blogToUpdate.title}`)
-    //}
   }
 
+  const deleteBlog = async (blogToDelete) => {
+    const id = blogToDelete.id
+    console.log(id);
+    try {
+    const request = await blogService.remove(id)
+    console.log(request)
+    setBlogs(blogs.filter(blog => blog.id !== blogToDelete.id))
+      setErrorMessage(`${blogToDelete.title} was successfuly deleted`)
+    } catch(exception) {
+      setErrorMessage(
+        `Cannot delete blog ${blogToDelete.title}`
+      )
+    }
+}
+  const byLikes = (b1, b2) => b2.likes - b1.likes
+
   const loginForm = () => {
-    
     return (
     <div>
       <Togglable buttonLabel= "reveal">
@@ -136,8 +129,9 @@ const updateLikes = async (blogToUpdate) => {
       />
       </Togglable>
       <h2>blogs</h2>
-      {blogs.map(blog =>
+      {blogs.sort(byLikes).map(blog =>
         <Blog 
+        deleteBlog = {deleteBlog}
         updateLikes={updateLikes}
         key={blog.id} 
         blog={blog} />
