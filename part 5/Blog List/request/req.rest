@@ -28,15 +28,15 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikdhcm
 //garip eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdhcmlwYm9pIiwiaWQiOiI2NGMzOTI0MjM0NjZmY2MzNzI5MDMxMzMiLCJpYXQiOjE2OTA3MTM1MzAsImV4cCI6MTY5MDcxNzEzMH0.C9TwV6etMTa15B76W9AN609bQsW0R6wfnz8W2TV3sqI
 
 ###
-PUT http://localhost:3004/api/blogs/64b7d77c083e9a1ad63120d5
+PUT http://localhost:3004/api/blogs/64cb7a2fdc22b509fb6794d3
 content-type: application/json
 
     {
-        "title": "Populate Test",
-        "author": "test",
-        "url": "test",
-        "likes": 9,
-        "id": "64b7d77c083e9a1ad63120d5"
+        "title": "updatetest",
+        "author": "updatetest",
+        "url": "updatetest",
+        "likes": 1,
+        "id": "64cb7a2fdc22b509fb6794d3"
 }
 
 ###

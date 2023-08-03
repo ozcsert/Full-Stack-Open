@@ -10,7 +10,8 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [error, setErrorMessage] = useState("er")
-  const [blogLoading, setBlogLoading] = useState(false)
+
+  //const [blogLoading, setBlogLoading] = useState(false)
  // const [loginVisible, setLoginVisible]= useState(false)
 
 //  useEffect(() => {
@@ -27,31 +28,11 @@ const App = () => {
 useEffect(() => {
   const loadData = async () => {
     const response = await blogService.getAll();
-    const allBlogs = await blogs.concat(response)
-    setBlogs(allBlogs)
-    console.log(blogs.user);
+    //const allBlogs = await blogs.concat(response)
+    setBlogs(response)
   }
   loadData();
 },[])
-
-
-//  if ((blogs[blogs.length - 1].user.username) === undefined) {
-//    console.log(blogs.forEach(blog => blog.user.username));
-//    setBlogLoading(!blogLoading)
-//    console.log(blogLoading);
-//}
-
-
-
-    //console.log(blogs[blogs.length - 1].user.username);
-
-    // Check if the last blog's user.username is undefined
-  //  if (blogs[blogs.length - 1].user.username === undefined) {
-  //    // If it is undefined, recursively call loadData to try again
-  //    loadData();
-  //  }
-  //};
-  // Call loadData when the component mounts}
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
@@ -111,6 +92,21 @@ useEffect(() => {
   }
 }
 
+const updateLikes = async (blogToUpdate) => {
+    //const blog = blogs.find(b => b.id === id)
+    console.log(blogToUpdate.id);
+    //try {
+    
+    const request = await blogService.update(blogToUpdate, blogToUpdate.id)
+    setErrorMessage(`Blog ${blogToUpdate.title} was succesfully updated`)
+    
+    setBlogs(blogs.map(blog => blog.id !== blogToUpdate.id ? blog : request))
+   
+   // } catch (exception) {
+    //  setErrorMessage(`Cannot update ${blogToUpdate.title}`)
+    //}
+  }
+
   const loginForm = () => {
     
     return (
@@ -136,13 +132,13 @@ useEffect(() => {
       </button>
       <Togglable buttonLabel="Create a blog">
       <BlogForm 
-
       createBlogPost={blogSubmit}
       />
       </Togglable>
       <h2>blogs</h2>
       {blogs.map(blog =>
         <Blog 
+        updateLikes={updateLikes}
         key={blog.id} 
         blog={blog} />
       )}
