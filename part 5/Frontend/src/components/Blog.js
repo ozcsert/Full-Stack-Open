@@ -1,34 +1,34 @@
-import React from "react";
-import { useState } from "react"
+import React from 'react'
+import { useState } from 'react'
 
-const Blog = ({blog, updateLikes, deleteBlog}) => {
+const Blog = ({ blog, updateLikes, deleteBlog }) => {
   const [visible, setVisible] = useState(true)
-  const [buttonValue, setButtonValue ] = useState("hide")
+  const [buttonValue, setButtonValue ] = useState('hide')
   const [likeCount, setLikeCount] = useState(blog.likes)
-    
+
   const LikeIncrease = async (event) => {
     event.preventDefault()
     setLikeCount(likeCount + 1)
-       const updatedLikes = {
-        ...blog,
-        likes: likeCount + 1,
-      }
-      updateLikes(updatedLikes)
-      console.log(updatedLikes.id);
+    const updatedLikes = {
+      ...blog,
+      likes: likeCount + 1,
     }
+    updateLikes(updatedLikes)
+    console.log(updatedLikes.id)
+  }
 
-    const blogDelete = (event) => {
-      event.preventDefault()
-      const blogDeleteObj = {
-        ...blog
-      }
-      if (window.confirm(`Delete ${blogDeleteObj.title} ?`)) {
-        deleteBlog(blogDeleteObj)
-      } 
+  const blogDelete = (event) => {
+    event.preventDefault()
+    const blogDeleteObj = {
+      ...blog
     }
+    if (window.confirm(`Delete ${blogDeleteObj.title} ?`)) {
+      deleteBlog(blogDeleteObj)
+    }
+  }
   const toggleVisibility = () => {
     setVisible(!visible)
-    setButtonValue(visible ? "view": "hide")
+    setButtonValue(visible ? 'view': 'hide')
   }
 
   const blogStyle= {
@@ -43,8 +43,8 @@ const Blog = ({blog, updateLikes, deleteBlog}) => {
     return (
       <div>
         <div style={blogStyle } >
-        <div>
-            {blog.title} 
+          <div>
+            {blog.title}
           </div>
         </div>
       </div>
@@ -55,14 +55,14 @@ const Blog = ({blog, updateLikes, deleteBlog}) => {
     return (
       <div>
         <div style={blogStyle} >
-        <div>
-          <br /> {blog.title}
-          <br /> {blog.author}
-          <br />{blog.url}
-          <br />likes {likeCount}
-          <button onClick={LikeIncrease} >like</button>
-          <br />{blog.user.username}
-          <button onClick={blogDelete} >remove</button>
+          <div>
+            <br /> {blog.title}
+            <br /> {blog.author}
+            <br />{blog.url}
+            <br />likes {likeCount}
+            <button onClick={LikeIncrease} >like</button>
+            <br />{blog.user.username}
+            <button onClick={blogDelete} >remove</button>
           </div>
         </div>
       </div>
@@ -72,13 +72,13 @@ const Blog = ({blog, updateLikes, deleteBlog}) => {
   return (
     <div>
       <div>
-      <button onClick={toggleVisibility}>{buttonValue}</button>
+        <button onClick={toggleVisibility}>{buttonValue}</button>
       </div>
-          {visible ? (
-            fullBlog())
-          : (
+      {visible ? (
+        fullBlog())
+        : (
           collapsedBlog())}
-  </div>
+    </div>
   )
 }
 
