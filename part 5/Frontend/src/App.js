@@ -130,14 +130,16 @@ const App = () => {
             createBlogPost={blogSubmit}
           />
         </Togglable>
-        <h2>blogs</h2>
-        {blogs.sort(byLikes).map(blog =>
-          <Blog
-            deleteBlog = {deleteBlog}
-            updateLikes={updateLikes}
-            key={blog.id}
-            blog={blog} />
-        )}
+        <div>
+          <h2>blogs</h2>
+          {blogs.sort(byLikes).map(blog =>
+            <Blog
+              deleteBlog = {deleteBlog}
+              updateLikes={updateLikes}
+              key={blog.id}
+              blog={blog} />
+          )}
+        </div>
       </div>
     )
   }

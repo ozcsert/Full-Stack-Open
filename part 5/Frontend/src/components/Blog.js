@@ -2,8 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 
 const Blog = ({ blog, updateLikes, deleteBlog }) => {
-  const [visible, setVisible] = useState(true)
-  const [buttonValue, setButtonValue ] = useState('hide')
+  const [visible, setVisible] = useState(false)
+  const [buttonValue, setButtonValue ] = useState('view')
   const [likeCount, setLikeCount] = useState(blog.likes)
 
   const LikeIncrease = async (event) => {
@@ -42,9 +42,10 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
   const collapsedBlog = () => {
     return (
       <div>
-        <div style={blogStyle } >
+        <div style={blogStyle} >
           <div>
-            {blog.title}
+            <br />{blog.title}
+            <br />{blog.author}
           </div>
         </div>
       </div>
@@ -53,9 +54,9 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
 
   const fullBlog = () => {
     return (
-      <div>
+      <div >
         <div style={blogStyle} >
-          <div>
+          <div >
             <br /> {blog.title}
             <br /> {blog.author}
             <br />{blog.url}
@@ -70,7 +71,7 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
   }
 
   return (
-    <div>
+    <div className="blog">
       <div>
         <button onClick={toggleVisibility}>{buttonValue}</button>
       </div>
