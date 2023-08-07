@@ -54,15 +54,15 @@ const BlogForm = (
         <h2>Create new</h2>
         <div>
           title:
-          <input type="text" name="title" value={title} placeholder='title' onChange={({ target }) => setTitle(target.value)}></input>
+          <input type="text" name="title" value={title} id="title" placeholder='title' onChange={({ target }) => setTitle(target.value)}></input>
         </div>
         <div>
           author:
-          <input type="text" name="author" value ={author} placeholder='author'onChange={({ target }) => setAuthor(target.value)}></input>
+          <input type="text" name="author" value ={author} id="author" placeholder='author'onChange={({ target }) => setAuthor(target.value)}></input>
         </div>
         <div>
           url:
-          <input type="text" name="url" value={url} placeholder='url' onChange={({ target }) => setUrl(target.value)}></input>
+          <input type="text" name="url" value={url} placeholder='url' id="url" onChange={({ target }) => setUrl(target.value)}></input>
         </div>
         <button type="submit" onClick={blogSubmit}>Save</button>
       </div>
