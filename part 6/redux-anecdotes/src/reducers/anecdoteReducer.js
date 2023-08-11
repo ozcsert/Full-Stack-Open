@@ -51,8 +51,6 @@ const anecdoteReducer = (state = initialState, action) => {
     console.log(newVotedQuote);
     return state.map(quote => quote.payload.id !== id ? quote : newVotedQuote)
   }
-
-  console.log('action', action)
   default:
   return state
 }
