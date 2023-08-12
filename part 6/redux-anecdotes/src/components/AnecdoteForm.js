@@ -13,8 +13,16 @@ const AnecdoteForm = () => {
         dispatch(createQuote(content))
     }
 
+    const style = {
+        marginTop: 5,
+        backgroundColor: 'grey',
+        color: 'white',
+        padding: '10px',
+        borderRadius: '5px',
+      }
+
     return (
-        <div>
+        <div style={style}>
     <h2>create new</h2>
     <form onSubmit={addQuote}>
       <input name="quote" type="text"/>

@@ -4,12 +4,20 @@ import { useSelector, useDispatch } from 'react-redux'
 
 
 const AnecdoteList = () => {
-
     const dispatch = useDispatch()
+    
+   // const anecdotes = useSelector(state => state.anecdotes.map(anecdote => anecdote.payload))
 
-    const anecdotes = useSelector(state => state.map(anecdote => anecdote.payload))
+    const anecdotes = useSelector(({ filter, anecdotes }) => {
+      anecdotes = anecdotes.map(anecdote => anecdote.payload)
+      console.log(anecdotes);
+      if (filter === '') {
+        return anecdotes
+      } return anecdotes
+        .filter(anecdote => anecdote.content.includes(filter))
+})
+
     const byVotes = (b1, b2) => b2.votes - b1.votes
-
 
     return (
         <div>

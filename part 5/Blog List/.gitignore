@@ -10,3 +10,4 @@
 .mongo.js
 .eslintrc.js
 package-lock.json
+package.json
