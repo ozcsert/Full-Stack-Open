@@ -1,16 +1,18 @@
 import { createQuote } from '../reducers/anecdoteReducer'
 import { useDispatch } from 'react-redux'
-
+import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteForm = () => {
     const dispatch = useDispatch()
 
     const addQuote = (event) => {
+
         event.preventDefault()
         const content = event.target.quote.value
         event.target.quote.value = ""
         console.log(content);
         dispatch(createQuote(content))
+        dispatch(setNotification(`${content} added`))
     }
 
     const style = {

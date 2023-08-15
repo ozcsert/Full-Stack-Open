@@ -1,4 +1,5 @@
-import { createStore } from 'redux'
+//import { createStore } from 'redux'
+import { createSlice } from '@reduxjs/toolkit'
 
 const anecdotesAtStart = [
   'If it hurts, do it more often',
@@ -12,55 +13,48 @@ const anecdotesAtStart = [
 const generateId = () =>
 Number((Math.random() * 1000000).toFixed(0))
 
-export const vote = (id) => {
-  console.log('vote', id)
+const populate = (content) => {
   return {
-    type: 'VOTE',
-    payload: { id }
-  }
-}
-
-export const createQuote = (content) => {
-  return {
-    type: 'NEW_QUOTE',
-    payload: {
       content,
       votes : 0,
       id: generateId()
-    }
   }
 }
 
-const initialState = anecdotesAtStart.map(anecdote => createQuote(anecdote))
+const initialState = anecdotesAtStart.map(anecdote => populate(anecdote))
 
-const anecdoteReducer = (state = initialState, action) => {
-  switch(action.type) {
-    case 'NEW_QUOTE':
-      return initialState.concat(action)
-   case 'VOTE': {
-    const id = action.payload.id
-    const quoteToVote = state.find(q => q.payload.id === id)
-
-    const newVotedQuote = {
-      type: quoteToVote.type,
-      payload : {
-        ...quoteToVote.payload, 
-        votes: ++quoteToVote.payload.votes
+const anecdoteSlice = createSlice({
+  name : 'anecdotes',
+  initialState,
+  reducers : {
+    createQuote(state, action) {
+      const content = action.payload
+      console.log(content);
+      state.push({
+        content,
+        votes: 0,
+        id: generateId(),
+      })
+    },
+    vote(state, action) {
+      console.log(action);
+        const id = action.payload
+        console.log(JSON.parse(JSON.stringify(state)))
+        const quoteToVote = state.find(q => q.id === id)
+        console.log(JSON.parse(JSON.stringify(quoteToVote)))
+        const newVotedQuote = {
+          ...quoteToVote,
+          votes: ++quoteToVote.votes
+        }
+        console.log(newVotedQuote);
+        state.map(quote => quote.id !== id ? quote : newVotedQuote)
     }
-    }
-    console.log(newVotedQuote);
-    return state.map(quote => quote.payload.id !== id ? quote : newVotedQuote)
   }
-  default:
-  return state
-}
-}
+})
 
-const store = createStore(anecdoteReducer)
-console.log(store.getState())
+export const { createQuote, vote } = anecdoteSlice.actions
 
-
-export default anecdoteReducer
+export default anecdoteSlice.reducer
 
 
 
