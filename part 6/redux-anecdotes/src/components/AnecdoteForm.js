@@ -1,18 +1,21 @@
 import { createQuote } from '../reducers/anecdoteReducer'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
+import anecdoteService from '../services/anecdotes'
 
 const AnecdoteForm = () => {
     const dispatch = useDispatch()
 
-    const addQuote = (event) => {
+    const addQuote =  async (event) => {
 
         event.preventDefault()
         const content = event.target.quote.value
         event.target.quote.value = ""
         console.log(content);
-        dispatch(createQuote(content))
+        const newAnecdote = await anecdoteService.createNew(content)
+        dispatch(createQuote(newAnecdote))
         dispatch(setNotification(`${content} added`))
+
     }
 
     const style = {

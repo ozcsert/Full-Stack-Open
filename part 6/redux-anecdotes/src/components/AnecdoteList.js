@@ -5,10 +5,11 @@ import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
     const dispatch = useDispatch()
+
     const anecdotes = useSelector(({ filter, anecdotes }) => {
-      console.log(anecdotes);
       anecdotes = anecdotes.map(anecdote => anecdote)
       if (filter === '') {
+        console.log(anecdotes);
         return anecdotes
       } return anecdotes
         .filter(anecdote => anecdote.content.includes(filter))
