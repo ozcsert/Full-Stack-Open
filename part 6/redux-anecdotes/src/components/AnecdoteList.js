@@ -2,6 +2,8 @@
 import { vote } from '../reducers/anecdoteReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
+import { updateAnecdote } from '../reducers/anecdoteReducer'
+import { useEffect } from 'react'
 
 const AnecdoteList = () => {
     const dispatch = useDispatch()
@@ -14,14 +16,18 @@ const AnecdoteList = () => {
       } return anecdotes
         .filter(anecdote => anecdote.content.includes(filter))
 })
-    console.log(anecdotes);
     const byVotes = (b1, b2) => b2.votes - b1.votes
 
   const toVote = (quoteId) => {
-    dispatch(vote(quoteId))
-    console.log(anecdotes.find(a => a.id === quoteId));
-    dispatch(setNotification(`Upvoted ${anecdotes.find(a => a.id === quoteId).content}`))
+    //dispatch(vote(quoteId))
+    const anecdoteToUpdate = anecdotes.find(a => a.id === quoteId);
+    dispatch(updateAnecdote(anecdoteToUpdate))
+    //dispatch(setNotification(`Upvoted ${anecdotes.find(a => a.id === quoteId).content}`))
   }
+
+//  useEffect(() => {
+//    dispatch(updateAnecdote())
+//  }, [dispatch])
 
     return (
         <div>

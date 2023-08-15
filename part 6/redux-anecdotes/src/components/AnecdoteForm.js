@@ -12,10 +12,9 @@ const AnecdoteForm = () => {
         const content = event.target.quote.value
         event.target.quote.value = ""
         console.log(content);
- //       const newAnecdote = await anecdoteService.createNew(content)
+///    const newAnecdote = await anecdoteService.createNew(content)
         dispatch(createQuote(content))
         dispatch(setNotification(`${content} added`))
-
     }
 
     const style = {
@@ -36,6 +35,5 @@ const AnecdoteForm = () => {
     </div>
     )
 }
-
 
 export default AnecdoteForm

@@ -29,23 +29,19 @@ const anecdoteSlice = createSlice({
   initialState,
   reducers : {
 //    createQuote(state, action) {
-//      const content = action.payload
-//      console.log(content);
 //      state.push(
 //        content)
 //    },
     vote(state, action) {
-      console.log(action);
+      console.log(action.payload);
         const id = action.payload
-        console.log(JSON.parse(JSON.stringify(state)))
+        //console.log(JSON.parse(JSON.stringify(state)))
         const quoteToVote = state.find(q => q.id === id)
-        console.log(JSON.parse(JSON.stringify(quoteToVote)))
         const newVotedQuote = {
           ...quoteToVote,
           votes: ++quoteToVote.votes
         }
-        console.log(newVotedQuote);
-        state.map(quote => quote.id !== id ? quote : newVotedQuote)
+        return state.map(quote => quote.id !== id ? quote : newVotedQuote)
     },
     setAnecdotes(state,action) {
       return action.payload
@@ -65,10 +61,32 @@ export const initializeAnecdotes = () => {
 
 export const createQuote = content => {
   return async dispatch => {
+    console.log(content);
     const newAnecdote = await anecdoteServices.createNew(content)
     dispatch(appendAnecdote(newAnecdote))
   }
 }
+
+export const updateAnecdote = async anecdoteToUpdate => {
+  return async dispatch => {
+    //const anecdoteToUpdate = anecdotes.find(a => a.id === quoteId)
+    const request = await anecdoteServices.update(anecdoteToUpdate, anecdoteToUpdate.id)
+    console.log(request);
+    dispatch(vote(request))
+  }
+}
+//const updateLikes = async (blogToUpdate) => {
+//
+//  const request = await blogService.update(blogToUpdate, blogToUpdate.id)
+//  setErrorMessage(`Blog ${blogToUpdate.title} was succesfully updated`)
+//  setBlogs(blogs.map(blog => blog.id !== blogToUpdate.id ? blog : request))
+//}
+
+
+//export const upVote = id => {
+//  
+//  dispatch(vote(id))
+//}
 
 export const { vote, setAnecdotes, appendAnecdote } = anecdoteSlice.actions
 
