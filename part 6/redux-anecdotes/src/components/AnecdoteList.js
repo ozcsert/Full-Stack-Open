@@ -9,7 +9,7 @@ const AnecdoteList = () => {
     const anecdotes = useSelector(({ filter, anecdotes }) => {
       anecdotes = anecdotes.map(anecdote => anecdote)
       if (filter === '') {
-        console.log(anecdotes);
+        
         return anecdotes
       } return anecdotes
         .filter(anecdote => anecdote.content.includes(filter))
