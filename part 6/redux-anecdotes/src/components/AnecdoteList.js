@@ -3,7 +3,6 @@ import { vote } from '../reducers/anecdoteReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import { updateAnecdote } from '../reducers/anecdoteReducer'
-import { useEffect } from 'react'
 
 const AnecdoteList = () => {
     const dispatch = useDispatch()
@@ -21,8 +20,9 @@ const AnecdoteList = () => {
   const toVote = (quoteId) => {
     //dispatch(vote(quoteId))
     const anecdoteToUpdate = anecdotes.find(a => a.id === quoteId);
+    console.log(anecdoteToUpdate);
     dispatch(updateAnecdote(anecdoteToUpdate))
-    //dispatch(setNotification(`Upvoted ${anecdotes.find(a => a.id === quoteId).content}`))
+    dispatch(setNotification(`Upvoted ${anecdotes.find(a => a.id === quoteId).content}`, 5000))
   }
 
 //  useEffect(() => {

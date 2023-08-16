@@ -19,9 +19,9 @@ export const { createNotification, resetNotification } = notificationSlicer.acti
 
 export default notificationSlicer.reducer;
 
-export const setNotification = (message) => (dispatch) => {
+export const setNotification = (message, timeout) => (dispatch) => {
     dispatch(createNotification(message));
     setTimeout(() => {
         dispatch(resetNotification());
-    }, 5000);
+    }, timeout);
 };

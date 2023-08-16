@@ -1,5 +1,5 @@
 //import { createStore } from 'redux'
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import anecdoteServices from '../services/anecdotes'
 //const anecdotesAtStart = [
 //  'If it hurts, do it more often',
@@ -41,7 +41,7 @@ const anecdoteSlice = createSlice({
           ...quoteToVote,
           votes: ++quoteToVote.votes
         }
-        return state.map(quote => quote.id !== id ? quote : newVotedQuote)
+        state.map(quote => quote.id !== id ? quote : newVotedQuote)
     },
     setAnecdotes(state,action) {
       return action.payload
@@ -67,12 +67,11 @@ export const createQuote = content => {
   }
 }
 
-export const updateAnecdote = async anecdoteToUpdate => {
+export const updateAnecdote =  anecdoteToUpdate => {
   return async dispatch => {
     //const anecdoteToUpdate = anecdotes.find(a => a.id === quoteId)
-    const request = await anecdoteServices.update(anecdoteToUpdate, anecdoteToUpdate.id)
-    console.log(request);
-    dispatch(vote(request))
+    const request = await anecdoteServices.update({...anecdoteToUpdate, votes: anecdoteToUpdate.votes + 1})
+    dispatch(vote(request.id))
   }
 }
 //const updateLikes = async (blogToUpdate) => {
